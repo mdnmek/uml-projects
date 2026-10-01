@@ -52,7 +52,7 @@ rectangle "Платформа онлайн-школы"{
     usecase "Проверка доступа к курсу" as UC_CheckAccess
     usecase "Запись вебинара" as UC_RecordWebinar
     usecase "Проверка статуса оплаты" as UC_CheckPayment
-    usecase "Скачать сертификат" as UC_DownloadCert    
+    usecase "Скачивание сертификата" as UC_DownloadCert    
     
 }
 
@@ -91,8 +91,21 @@ UC_TakeLesson ..> UC_CheckAccess : <<include>>
 UC_Webinar ..> UC_RecordWebinar : <<include>>
 UC_Pay ..> UC_CheckPayment : <<include>>
 
-' связи Extend
-UC_AskQuestion .> UC_TakeLesson : <<extend>>
-UC_DownloadCert .> UC_ViewProgress : <<extend>>
+' Связи Extend с точками расширения
+UC_AskQuestion .> UC_TakeLesson : <<extend>>\n(Точка расширения: В процессе урока)
+UC_DownloadCert .> UC_ViewProgress : <<extend>>\n(Точка расширения: Курс успешно завершен)
+
+' заметки с описанием точек расширения
+note right of UC_TakeLesson
+  **Точки расширения:**
+  • В процессе урока
+  • При возникновении вопроса
+end note
+
+note right of UC_ViewProgress
+  **Точки расширения:**
+  • Курс успешно завершен
+  • Оценка выше проходного балла
+end note
 
 @enduml
