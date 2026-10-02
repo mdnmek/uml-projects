@@ -22,7 +22,8 @@ BaseUser <|-- Parent
 rectangle "Платформа онлайн-школы"{
     'действия студента
     usecase "Просмотр курсов" as UC_ViewCourses
-    usecase "Прохождение занятия" as UC_TakeLesson
+    usecase "Запись на курс" as UC_EnrollCourse
+    usecase "Прохождение урока" as UC_TakeLesson
     usecase "Сдача домашнего задания" as UC_SubmitHW
     usecase "Просмотр оценок" as UC_ViewGrades
     usecase "Написание вопроса" as UC_AskQuestion
@@ -64,6 +65,7 @@ Student --> UC_TakeLesson
 Student --> UC_SubmitHW
 Student --> UC_ViewGrades
 Student --> UC_AskQuestion
+Student --> UC_EnrollCourse
 
 'связи преподавателя
 Teacher --> UC_CreateCourse
@@ -90,6 +92,9 @@ Parent --> UC_Notifications
 UC_TakeLesson ..> UC_CheckAccess : <<include>>
 UC_Webinar ..> UC_RecordWebinar : <<include>>
 UC_Pay ..> UC_CheckPayment : <<include>>
+
+UC_EnrollCourse ..> UC_CheckPayment : <<include>>
+UC_EnrollCourse ..> UC_CheckAccess : <<include>>
 
 ' Связи Extend с точками расширения
 UC_AskQuestion .> UC_TakeLesson : <<extend>>\n(Точка расширения: В процессе урока)
